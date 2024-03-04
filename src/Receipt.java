@@ -78,7 +78,7 @@ public class Receipt {
 
     public static void main(String[] args) {
         Product[] products = new Product[]{
-            new Product("Clean Code, Robert C. Martin", 100.00, "7%"), 
+            new Product("Clean Code, Robert C. Martin", 100.00, "8%"), 
             new Product("Applying UML and Patterns, C. Larman", 300.00, "8%"),
             new Product("Shipping", 50.00, "23%")};
             
