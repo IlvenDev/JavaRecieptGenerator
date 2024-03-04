@@ -12,30 +12,6 @@ public class Receipt {
         }
 
         return name;
-    }
-
-    private static float calculateTotalVat23(Product[] products){
-        float totalTax = 0;
-
-        for (Product product : products) {
-            if ("23%".equals(product.getVatAmount())) {
-                totalTax += VatCalculator.calculateTax23(product.getCost());
-            }
-        }
-
-        return totalTax;
-    };
-
-    private static float calculateTotalVat8(Product[] products){
-        float totalTax = 0;
-
-        for (Product product : products) {
-            if ("8%".equals(product.getVatAmount())) {
-                totalTax += VatCalculator.calculateTax8(product.getCost());
-            }
-        }
-
-        return totalTax;
     };
 
     private static Map<String, Float> calculateTotalVAT(Product[] products){
@@ -88,9 +64,9 @@ public class Receipt {
             }
 
             FileWriter receiptWriter = new FileWriter("receipt.md");
-            receiptWriter.write("|               | Total netto |  VAT Amount |\n");
-            receiptWriter.write("| Vat 8%        | " + rightPad(Float.toString(totalCostNetto.get("8%"))) + "| " + rightPad(Float.toString(totalVAT.get("8%"))) + "|\n");
-            receiptWriter.write("| Vat 23%       | " + rightPad(Float.toString(totalCostNetto.get("23%"))) + "| " + rightPad(Float.toString(totalVAT.get("23%"))) + "|\n");
+            receiptWriter.write("|               | Total netto | VAT Amount  |\n");
+            receiptWriter.write("| Vat 8%        | " + rightPad(String.format("%.2f", totalCostNetto.get("8%"))) + "| " + rightPad(String.format("%.2f", totalVAT.get("8%"))) + "|\n");
+            receiptWriter.write("| Vat 23%       | " + rightPad(String.format("%.2f", totalCostNetto.get("23%"))) + "| " + rightPad(String.format("%.2f", totalVAT.get("23%"))) + "|\n");
             receiptWriter.close();
         } catch(IOException e) {
             System.out.println("An error occured");
@@ -100,11 +76,11 @@ public class Receipt {
     };
 
     public static void main(String[] args) {
-        Product[] products = new Product[]{new Product("Clean Code, Robert C. Martin", 100.00, "8%"), new Product("Applying UML and Patterns, C. Larman", 300.00, "8%"),new Product("Shipping", 50.00, "23%")};
-        /* products[0] = new Product("Clean Code, Robert C. Martin", 100.00, "8%");
-        products[1] = new Product("Applying UML and Patterns, C. Larman", 300.00, "8%");
-        products[2] = new Product("Shipping", 50.00, "23%"); */
-
+        Product[] products = new Product[]{
+            new Product("Clean Code, Robert C. Martin", 100.00, "8%"), 
+            new Product("Applying UML and Patterns, C. Larman", 300.00, "8%"),
+            new Product("Shipping", 50.00, "23%")};
+            
         Receipt.createReciept(products);
-    }
+    };
 }
