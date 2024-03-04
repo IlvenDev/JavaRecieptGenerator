@@ -9,4 +9,12 @@ public class VatCalculator {
 
         return productPrice * 0.23;
     };
+
+    public static double calculateVAT(Product product){
+        if (product.getVatAmount().equals("23%")) {
+            return product.getCost() * 0.23;
+        } else {
+            return product.getCost() * 0.08;
+        }
+    };
 }

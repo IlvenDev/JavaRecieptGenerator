@@ -20,11 +20,11 @@ public class Receipt {
 
         for (Product product : products) {
             if ("23%".equals(product.getVatAmount())) {
-                vat23 += VatCalculator.calculateTax23(product.getCost());
+                vat23 += VatCalculator.calculateVAT(product);
             } else if ("8%".equals(product.getVatAmount())){
-                vat8 += VatCalculator.calculateTax8(product.getCost());
-            };
-        }
+                vat8 += VatCalculator.calculateVAT(product);  
+            }; 
+        };
 
         taxes.put("23%", vat23);
         taxes.put("8%", vat8);
@@ -51,7 +51,7 @@ public class Receipt {
     };
 
     
-    public static void createReciept(Product[] products){
+    public static void createReceipt(Product[] products){
         Map<String, Float> totalCostNetto = calculateTotalNetto(products);
         Map<String, Float> totalVAT = calculateTotalVAT(products);
 
@@ -65,6 +65,7 @@ public class Receipt {
 
             FileWriter receiptWriter = new FileWriter("receipt.md");
             receiptWriter.write("|               | Total netto | VAT Amount  |\n");
+            receiptWriter.write("|---------------|-------------|-------------|\n");
             receiptWriter.write("| Vat 8%        | " + rightPad(String.format("%.2f", totalCostNetto.get("8%"))) + "| " + rightPad(String.format("%.2f", totalVAT.get("8%"))) + "|\n");
             receiptWriter.write("| Vat 23%       | " + rightPad(String.format("%.2f", totalCostNetto.get("23%"))) + "| " + rightPad(String.format("%.2f", totalVAT.get("23%"))) + "|\n");
             receiptWriter.close();
@@ -77,10 +78,10 @@ public class Receipt {
 
     public static void main(String[] args) {
         Product[] products = new Product[]{
-            new Product("Clean Code, Robert C. Martin", 100.00, "8%"), 
+            new Product("Clean Code, Robert C. Martin", 100.00, "7%"), 
             new Product("Applying UML and Patterns, C. Larman", 300.00, "8%"),
             new Product("Shipping", 50.00, "23%")};
             
-        Receipt.createReciept(products);
+        Receipt.createReceipt(products);
     };
 }
