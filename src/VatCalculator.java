@@ -1,12 +1,12 @@
 public class VatCalculator {
 
-    public static double calcTax8(double d) {
+    public static double calculateTax8(double productPrice) {
 
-        return d * 0.08;
+        return productPrice * 0.08;
     };
 
-    public static double calcTax23(double d) {
+    public static double calculateTax23(double productPrice) {
 
-        return d * 0.23;
+        return productPrice * 0.23;
     };
 }
